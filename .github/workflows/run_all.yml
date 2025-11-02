@@ -1,6 +1,5 @@
-
 # Auto Generated YAML please don't change
-name: 'Run All'
+name: "Run All"
 
 on:
   workflow_dispatch:
@@ -9,7 +8,7 @@ on:
         required: true
         type: string
         default: '["20.0.0","20.19.4","20.19.5","22.0.0","22.15.1","22.17.1","24.0.0","24.4.1","25.0.0"]'
-        description: 'The Node.js Versions (should be a JSON array)'
+        description: "The Node.js Versions (should be a JSON array)"
 
 permissions:
   contents: write
@@ -26,15 +25,15 @@ jobs:
           aws-region: us-west-2
           role-to-assume: arn:aws:iam::800406105498:role/RafaelGSS-nodejs-bench-operations
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Start Runner
         uses: nodesource/aws-eco-runner@v1.0.0-beta.3
         with:
           instances_id: '["i-065f0f848eb1615ae"]'
-          action: 'start'
-          aws_default_region: 'us-west-2'
-  
+          action: "start"
+          aws_default_region: "us-west-2"
+
   add-property:
     needs: runner-start
     name: Running "add-property.mjs"
@@ -358,5 +357,5 @@ jobs:
         uses: nodesource/aws-eco-runner@v1.0.0-beta.3
         with:
           instances_id: '["i-065f0f848eb1615ae"]'
-          action: 'stop'
-          aws_default_region: 'us-west-2'
+          action: "stop"
+          aws_default_region: "us-west-2"

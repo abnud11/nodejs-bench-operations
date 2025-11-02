@@ -1,4 +1,4 @@
-name: 'Watch Benchmarks'
+name: "Watch Benchmarks"
 
 on:
   workflow_dispatch:
@@ -6,7 +6,7 @@ on:
     branches:
       - main
     paths:
-      - 'bench/**'
+      - "bench/**"
 
 permissions:
   issues: write
@@ -20,9 +20,9 @@ jobs:
       changes: ${{ steps.changes.outputs.benchmarks }}
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
-      - name: 'Detect File Changes'
+      - name: "Detect File Changes"
         uses: dorny/paths-filter@v2
         id: changes
         with:

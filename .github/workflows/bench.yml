@@ -1,4 +1,4 @@
-name: 'Run Benchmark'
+name: "Run Benchmark"
 
 on:
   workflow_dispatch:
@@ -10,16 +10,16 @@ on:
         required: true
         type: string
         default: '["18.0.0","18.20.7","18.20.8","20.0.0","20.19.0","20.19.1","21.0.0","21.7.2","21.7.3","22.0.0","22.14.0","22.15.0","23.0.0","23.10.0","23.11.0"]'
-        description: 'The Node.js Versions (should be a JSON array)'
+        description: "The Node.js Versions (should be a JSON array)"
       node-opts:
         required: false
         type: string
-        description: 'Flags to be used in the Node.js binary'
+        description: "Flags to be used in the Node.js binary"
       run-start-stop:
         required: false
         type: boolean
         default: true
-        description: 'When false, starting and stopping the runner machine is skipped'
+        description: "When false, starting and stopping the runner machine is skipped"
   workflow_call:
     inputs:
       bench-file:
@@ -29,16 +29,16 @@ on:
         required: true
         type: string
         default: '["18.0.0","18.20.0","18.20.4","20.0.0","20.17.0","20.18.0","21.0.0","21.7.3","22.0.0","22.9.0","22.11.0", "23.0.0"]'
-        description: 'The Node.js Versions (should be a JSON array)'
+        description: "The Node.js Versions (should be a JSON array)"
       node-opts:
         required: false
         type: string
-        description: 'Flags to be used in the Node.js binary'
+        description: "Flags to be used in the Node.js binary"
       run-start-stop:
         required: false
         type: boolean
         default: true
-        description: 'When false, starting and stopping the runner machine is skipped'
+        description: "When false, starting and stopping the runner machine is skipped"
 
 permissions:
   issues: write
@@ -62,8 +62,8 @@ jobs:
         uses: nodesource/aws-eco-runner@v1.0.0-beta.3
         with:
           instances_id: '["i-065f0f848eb1615ae"]'
-          action: 'start'
-          aws_default_region: 'us-west-2'
+          action: "start"
+          aws_default_region: "us-west-2"
 
   benchmark:
     continue-on-error: true
@@ -76,10 +76,10 @@ jobs:
       fail-fast: true
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Use Node.js v${{ matrix.node-version }}
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: ${{ matrix.node-version }}
 
@@ -142,12 +142,12 @@ jobs:
       contents: write
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           ref: ${{ github.ref }}
 
       - name: Use Node.js v22.x
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: 22.x
 
@@ -174,7 +174,7 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
           branch: ${{ github.ref }}
-          commit_message: 'chore(${{ inputs.bench-file }}): update benchmark results'
+          commit_message: "chore(${{ inputs.bench-file }}): update benchmark results"
           commit_author: Github Actions <actions@github.com>
 
   ## Stop Runner
@@ -191,11 +191,11 @@ jobs:
           aws-region: ${{ secrets.AWS_REGION }}
 
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Stop Runner
         uses: nodesource/aws-eco-runner@v1.0.0-beta.3
         with:
           instances_id: '["i-065f0f848eb1615ae"]'
-          action: 'stop'
-          aws_default_region: 'us-west-2'
+          action: "stop"
+          aws_default_region: "us-west-2"
